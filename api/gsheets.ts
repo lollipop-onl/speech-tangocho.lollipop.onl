@@ -31,9 +31,23 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
       sheets.push(sheet);
     }
 
-    const rows = (await Promise.all(sheets.map((sheet) => sheet.getRows())));
+    const results = await Promise.all(sheets.map(async (sheet) => {
+      const rows = await sheet.getRows();
 
-    res.json({ message: 'succeed.' , sheets: rows.map((row) => row.map((item) => ({ index: item.rowIndex, id: item.id }))) });
+      return {
+        id: sheet.sheetId,
+        title: sheet.title,
+        sheets: rows
+          .map((row) => {
+            const { id, english, japanese } = row;
+
+            return { id, english, japanese };
+          })
+          .filter(({ english, japanese }) => english && japanese),
+      };
+    }));
+
+    res.json(results);
   } catch (error) {
     console.error(error);
 
