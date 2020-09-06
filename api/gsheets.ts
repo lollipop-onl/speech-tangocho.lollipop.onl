@@ -30,7 +30,10 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
     }
 
     res.json({ message: 'succeed.' , sheets });
-  } catch (err) {
-    res.json(err);
+  } catch (error) {
+    res.json({
+      message: 'failed.',
+      error,
+    });
   }
 };
