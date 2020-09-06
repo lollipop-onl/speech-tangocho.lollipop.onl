@@ -31,7 +31,7 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
       sheets.push(sheet);
     }
 
-    const rows = (await Promise.all(sheets.map((sheet) => sheet.getRows()))).map((rows) => rows.map((row) => { id: row.id }));
+    const rows = (await Promise.all(sheets.map((sheet) => sheet.getRows()))).map((rows) => rows.map((row) => { english: row.english }));
 
     res.json({ message: 'succeed.' , sheets: rows });
   } catch (error) {
