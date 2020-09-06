@@ -31,6 +31,8 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
 
     res.json({ message: 'succeed.' , sheets });
   } catch (error) {
+    console.error(error);
+
     res.json({
       message: 'failed.',
       error,
