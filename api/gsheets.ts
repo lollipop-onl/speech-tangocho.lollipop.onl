@@ -17,9 +17,19 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
 
     await doc.loadInfo();
 
-    const sheets = Object.fromEntries(Object.entries(doc.sheetsByTitle).filter(([title]) => !title.startsWith('_')));
+    const sheets = [];
 
-    res.json(doc.sheetsByTitle);
+    for (let i = 0; i < doc.sheetCount - 1; i++) {
+      const sheet = doc.sheetsByIndex[i];
+
+      if (sheet.title.startsWith('_')) {
+        continue;
+      }
+
+      sheets.push(sheet);
+    }
+
+    res.json({ sheets });
   } catch (err) {
     res.json(err);
   }
