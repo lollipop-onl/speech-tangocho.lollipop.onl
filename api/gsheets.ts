@@ -9,12 +9,16 @@ const {
 const doc = new GoogleSpreadsheet(GOOGLE_SPREADSHEET_SHEET_ID);
 
 module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
-  await doc.useServiceAccountAuth({
-    client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: GOOGLE_PRIVATE_KEY,
-  });
+  try {
+    await doc.useServiceAccountAuth({
+      client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: GOOGLE_PRIVATE_KEY,
+    });
 
-  await doc.loadInfo();
+    await doc.loadInfo();
 
-  res.json({ count: doc.sheetCount });
+    res.json({ count: doc.sheetCount });
+  } catch (err) {
+    res.json(err);
+  }
 };
