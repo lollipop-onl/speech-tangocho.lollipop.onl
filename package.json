@@ -1,0 +1,7 @@
+{
+  "name": "speech-tangocho.lollipop.onl",
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
