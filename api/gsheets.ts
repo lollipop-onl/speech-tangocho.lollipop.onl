@@ -19,7 +19,7 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
 
     const sheets = Object.fromEntries(Object.entries(doc.sheetsByTitle).filter(([title]) => !title.startsWith('_')));
 
-    res.json(sheets);
+    res.json(doc.sheetsByTitle);
   } catch (err) {
     res.json(err);
   }
