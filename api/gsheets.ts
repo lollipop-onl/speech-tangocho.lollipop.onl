@@ -29,7 +29,7 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
       sheets.push(sheet);
     }
 
-    res.json({ sheets });
+    res.json({ message: 'succeed.' , sheets });
   } catch (err) {
     res.json(err);
   }
