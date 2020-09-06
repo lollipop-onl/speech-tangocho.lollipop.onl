@@ -33,7 +33,7 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
 
     const rows = (await Promise.all(sheets.map((sheet) => sheet.getRows())));
 
-    res.json({ message: 'succeed.' , sheets: rows.map((row) => row.length) });
+    res.json({ message: 'succeed.' , sheets: rows.map((row) => row.map((item) => ({ index: item.rowIndex, id: item.id }))) });
   } catch (error) {
     console.error(error);
 
