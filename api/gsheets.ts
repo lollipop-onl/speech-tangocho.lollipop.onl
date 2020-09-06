@@ -17,7 +17,19 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
 
     await doc.loadInfo();
 
-    res.json({ count: doc.sheetCount });
+    const sheets = [];
+
+    for (let i = 0; i < doc.sheetCount - 1; i++) {
+      const sheet = doc.sheetsByIndex[i];
+
+      if (sheet.title.startsWith('_')) {
+        continue;
+      }
+
+      sheets.push(sheet);
+    }
+
+    res.json({ count: sheets.length });
   } catch (err) {
     res.json(err);
   }
