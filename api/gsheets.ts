@@ -31,9 +31,9 @@ module.exports = async (req: NowRequest, res: NowResponse): Promise<void> => {
       sheets.push(sheet);
     }
 
-    const rows = (await Promise.all(sheets.map((sheet) => sheet.getRows()))).map((rows) => rows.map((row) => { english: Object.keys(row) }));
+    const rows = (await Promise.all(sheets.map((sheet) => sheet.getRows())));
 
-    res.json({ message: 'succeed.' , sheets: rows });
+    res.json({ message: 'succeed.' , sheets: rows.map((row) => row.length) });
   } catch (error) {
     console.error(error);
 
